@@ -1,0 +1,58 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-5">
+  <h1 class="text-center">My Bookings</h1>
+  <% if (bookings.length === 0) { %>
+    <p class="text-center mt-4">You have no bookings yet.</p>
+  <% } else { %>
+    <div id="booking-table">
+      <div class="table-responsive">
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th>Hotel Name</th>
+              <th>Check-In</th>
+              <th>Check-Out</th>
+              <th>Guests</th>
+              <th>Total Cost</th>
+              <th>Action</th>
+              <th>Download Bill</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% bookings.forEach(({ listing, booking }) => { %>
+              <tr>
+                <td><%= listing.title %></td>
+                <td><%= booking.checkIn.toDateString() %></td>
+                <td><%= booking.checkOut.toDateString() %></td>
+                <td><%= booking.guests %></td>
+                <td>&#8377;<%= booking.totalCost.toLocaleString("en-IN") %></td>
+                <td>
+                  <% if (booking.cancelled) { %>
+                    <span class="text-danger">Cancelled</span>
+                  <% } else { %>
+                    <form action="/listings/<%= listing._id %>/bookings/<%= booking._id %>/cancel" method="POST" style="display:inline;">
+                      <button class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+                    </form>
+                  <% } %>
+                </td>
+                <td>
+                  <a href="/listings/<%= listing._id %>/bookings/<%= booking._id %>/bill" target="_blank"
+                    class="btn btn-info btn-sm">
+                    Download Bill
+                  </a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% } %>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+  document.getElementById("download-pdf")?.addEventListener("click", function () {
+    html2pdf().from(document.getElementById("booking-table")).save("my-bookings.pdf");
+  });
+</script>

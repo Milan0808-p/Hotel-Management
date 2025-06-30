@@ -1,0 +1,66 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <div class="card mt-4 shadow-lg">
+    <div class="card-header bg-dark text-white text-center" style="background-color: #fe424d;">
+      <h2>Booking Confirmation</h2>
+    </div>
+    <div class="card-body p-3">
+      <h3 class="card-title text-center mb-4">Thank you, <%= name %>!</h3>
+      <p class="card-text"><b>Hotel Name:</b> <%= listing.title %></p>
+      <p class="card-text"><b>Check-In Date:</b> <%= checkIn %></p>
+      <p class="card-text"><b>Check-Out Date:</b> <%= checkOut %></p>
+      <p class="card-text"><b>Number of Guests:</b> <%= guests %></p>
+      <p class="card-text"><b>Total Nights:</b> <%= days %></p>
+      <p class="card-text"><b>Total Cost:</b> &#8377;<%= totalCost.toLocaleString("en-IN") %></p>
+      <hr>
+      <p class="card-text"><b>Customer Name:</b> <%= name %></p>
+      <p class="card-text"><b>Email:</b> <%= email %></p>
+      <p class="card-text"><b>Phone:</b> <%= phone %></p>
+    </div>
+    <div class="card-footer text-center">
+      <button id="download-btn" class="btn btn-dark" style="background-color: #fe424d;">Download Bill</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("download-btn").addEventListener("click", () => {
+    const element = document.querySelector(".card");
+    const downloadButton = document.getElementById("download-btn");
+
+    // Hide the download button before generating the PDF
+    downloadButton.style.display = "none";
+
+    // Configure html2pdf to generate a non-editable PDF
+    html2pdf()
+      .set({
+        margin: 1,
+        filename: "Booking_Bill.pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: {
+          unit: "in",
+          format: "letter",
+          orientation: "portrait",
+        },
+      })
+      .from(element)
+      .toPdf()
+      .get("pdf")
+      .then((pdf) => {
+        // Lock the PDF to make it non-editable
+        pdf.setProperties({
+          title: "Booking Bill",
+          subject: "Hotel Booking Confirmation",
+          author: "Your Website Name",
+          keywords: "Booking, Hotel, Confirmation",
+          creator: "Your Website Name",
+        });
+      })
+      .save()
+      .finally(() => {
+        // Show the download button again after the PDF is generated
+        downloadButton.style.display = "block";
+      });
+  });
+</script>

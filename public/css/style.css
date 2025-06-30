@@ -1,0 +1,556 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  flex: 1;
+}
+/* Navbar */
+.navbar {
+  height: 5rem;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+.fa-hippo {
+  color: #54b0df;
+  font-size: 2rem;
+}
+.nav-link {
+  color: #373535 !important;
+}
+.nav-link:hover{
+  color: black !important;
+}
+
+/* footer */
+.f-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9d6d6;
+  padding: 0.2rem;
+  margin-top: 1rem;
+}
+.f-info-socials a{
+  text-decoration: none;
+  color: #373535;
+}
+.f-info-socials a:hover{
+  color: #222222;
+}
+.f-info-links a {
+  text-decoration: none;
+  color: #222222;
+  font-size: 0.8rem;
+}
+.f-info-links :hover {
+  text-decoration: underline;
+}
+.f-info-brand {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+.fa-brands {
+  font-size: 1rem;
+  margin-right: 0.3rem;
+}
+
+/* index route edit: cards */
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-container {
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.card-container a {
+  text-decoration: none;
+}
+.card {
+  border: none !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+.card-img-top {
+  height: 230px;
+  border-radius: 1rem !important;
+  object-fit: cover !important;
+  margin-bottom: 0.2rem;
+}
+.card-body {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+.card-title {
+  font-weight: 500;
+  margin-bottom: 0px !important;
+}
+.card-text {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #616161;
+  margin-bottom: 0px !important;
+}
+/* .card-price b{
+  font-weight: 400 !important;
+} */
+.card-img-overlay {
+  opacity: 0;
+}
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+/* New page */
+.form-control {
+  background-color: #f3f0f0 !important;
+}
+.add-btn {
+  background-color: #54c8df !important;
+  border: none !important;
+}
+
+/* show route */
+.show-card {
+  width: 65%;
+}
+.card-img-top {
+  /* height: 230px;
+  width: 100%;
+  border-radius: 1rem !important;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 0.2rem; */
+}
+.show-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.show-btn {
+  margin-top: 1rem;
+}
+.show-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.show-btn a {
+  padding: 0.4rem 2rem;
+}
+
+/* review card */
+.card-p {
+  margin-bottom: 0.1px !important;
+}
+.review-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0.5rem;
+}
+.review-card {
+  margin-bottom: 1rem;
+  border: 1px solid rgb(157, 152, 152) !important;
+  padding: 0.3rem 0.5rem;
+  margin-right: 1rem;
+}
+.card-rating {
+  margin-bottom: 0.2rem !important;
+}
+
+/* Filters container styling */
+.filters-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scrollbar-width: none; /* Hide scrollbar for modern browsers */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  padding: 0.5rem 0;
+  flex: 1; /* Allow the filters to take up available space */
+  position: relative; /* For positioning scroll buttons inside */
+}
+
+/* Hide scrollbar for Webkit browsers */
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual filter styling */
+.filter {
+  flex: 0 0 auto; /* Prevent shrinking */
+  text-align: center;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+  text-decoration: none;
+  color: #373535;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter p {
+  font-size: 0.8rem;
+}
+
+/* Scroll buttons styling */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: none; /* Initially hidden */
+}
+
+.scroll-btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.scroll-btn.left {
+  left: 0; /* Position at the start of the filters */
+}
+
+.scroll-btn.right {
+  right: 0; /* Position at the end of the filters */
+}
+
+/* Ensure filters and text-toggle stay on the same line */
+.text-toggle {
+  border: 1px solid rgb(173, 166, 166);
+  border-radius: 1rem;
+  height: 2.9rem;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.text-toggle label {
+  font-size: 0.8rem;
+}
+
+.text-toggle:hover {
+  background-color: rgb(255, 252, 252);
+  border: 1.4px solid black;
+}
+
+.card-text-text {
+  display: none;
+}
+
+.text-toggle {
+  border: 1px solid rgb(173, 166, 166);
+  border-radius: 1rem;
+  height: 2.9rem;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center !important;
+}
+
+.text-toggle label {
+  font-size: 0.8rem;
+}
+
+.text-toggle:hover {
+  background-color: rgb(236, 236, 236);
+  border: 1.4px solid black;
+}
+
+
+
+/* like btn on all listing */
+/* Card image container to position the like button */
+.card-img-container {
+  position: relative;
+}
+
+/* Like button styling */
+.like-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  /* Small size like Airbnb */
+  color: rgb(254, 254, 254);
+  opacity: 0.7;
+  /* Default white color */
+  transition: color 0.3s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.like-btn:hover {
+  transform: scale(1.2);
+  /* Slight zoom effect on hover */
+}
+
+.like-btn.liked {
+  color: #54c8df;
+  /* Red color when liked */
+
+}
+
+
+/* map */
+#map {
+  width: 100%; /* Full width */
+  height: 400px; /* Fixed height */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for a modern look */
+  margin-top: 20px; /* Add some spacing */
+}
+
+
+
+
+
+
+
+
+
+.text-danger,
+.alert-danger,
+.btn-danger,
+.btn-danger:hover,
+.invalid-feedback,
+.text-danger:focus,
+.text-danger:active {
+  color: #54c8df !important;
+  border-color: #54c8df !important;
+  background-color: #fff !important;
+}
+
+.btn-danger,
+.btn-danger:focus,
+.btn-danger:active {
+  background-color: #fff !important;
+  color: #54c8df !important;
+  border: 2px solid #54c8df !important;
+}
+
+.btn-danger:hover {
+  background-color: #54c8df !important;
+  color: #fff !important;
+}
+
+/* For Bootstrap alert-danger background */
+.alert-danger {
+  background-color: #e3f4fb !important;
+  border-color: #54c8df !important;
+}
+
+/* For form validation feedback */
+.invalid-feedback {
+  color: #54c8df !important;
+}
+
+/* For any other red text */
+.text-danger {
+  color: #54c8df !important;
+}
+
+
+
+/* ...existing code... */
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background: #181f2a !important;
+  color: #e3f4fb !important;
+}
+body.dark-mode .container,
+body.dark-mode .table,
+body.dark-mode .navbar,
+body.dark-mode .card,
+body.dark-mode .form-control {
+  background: #232c36 !important;
+  color: #e3f4fb !important;
+  border-color: #222 !important;
+}
+body.dark-mode .table th,
+body.dark-mode .table td {
+  background: #232c36 !important;
+  color: #e3f4fb !important;
+  border-color: #222 !important;
+}
+body.dark-mode .navbar,
+body.dark-mode .navbar-brand,
+body.dark-mode .nav-link {
+  background: #232c36 !important;
+  color: #54c8df !important;
+}
+body.dark-mode .nav-link,
+body.dark-mode .navbar-brand {
+  color: #54c8df !important;
+}
+body.dark-mode .btn,
+body.dark-mode .btn:active,
+body.dark-mode .btn:focus {
+  background: #232c36 !important;
+  color: #54c8df !important;
+  border-color: #54c8df !important;
+}
+body.dark-mode .btn-primary,
+body.dark-mode .btn-success,
+body.dark-mode .btn-info {
+  background: #54c8df !important;
+  color: #fff !important;
+  border-color: #54c8df !important;
+}
+body.dark-mode .btn-danger {
+  background: #fff !important;
+  color: #54c8df !important;
+  border: 2px solid #54c8df !important;
+}
+body.dark-mode .btn-danger:hover {
+  background: #54c8df !important;
+  color: #fff !important;
+}
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode label,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode td,
+body.dark-mode th,
+body.dark-mode a,
+body.dark-mode li,
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  color: #e3f4fb !important;
+}
+body.dark-mode .form-control,
+body.dark-mode .input-search {
+  background: #232c36 !important;
+  color: #e3f4fb !important;
+  border-color: #54c8df !important;
+}
+body.dark-mode .form-control:focus,
+body.dark-mode .input-search:focus {
+  background: #232c36 !important;
+  color: #e3f4fb !important;
+  border-color: #54c8df !important;
+}
+body.dark-mode .alert,
+body.dark-mode .alert-warning,
+body.dark-mode .alert-danger {
+  background: #232c36 !important;
+  color: #54c8df !important;
+  border-color: #54c8df !important;
+}
+/* Footer dark mode */
+body.dark-mode .f-info {
+  background-color: #232c36 !important;
+  color: #e3f4fb !important;
+}
+body.dark-mode .f-info a,
+body.dark-mode .f-info-links a,
+body.dark-mode .f-info-socials a,
+body.dark-mode .f-info-brand {
+  color: #54c8df !important;
+}
+body.dark-mode .f-info-links a:hover,
+body.dark-mode .f-info-socials a:hover {
+  color: #e3f4fb !important;
+}
+
+body.dark-mode {
+  background: #181f2a !important;
+  color: #e3f4fb !important;
+}
+
+/* Keep blue buttons (btn-info, btn-primary, .add-btn) always blue in dark mode */
+body.dark-mode .btn-info,
+body.dark-mode .btn-primary,
+body.dark-mode .add-btn {
+  background-color: #54c8df !important;
+  color: #fff !important;
+  border-color: #54c8df !important;
+}
+
+/* Change only dark buttons to light in dark mode */
+body.dark-mode .btn-dark,
+body.dark-mode .btn-outline-dark {
+  background-color: #54c8df !important;
+  color: #232c36 !important;
+  border-color: #e3f4fb !important;
+}
+
+/* Optional: Make sure hover/focus states are also handled */
+body.dark-mode .btn-dark:hover,
+body.dark-mode .btn-outline-dark:hover,
+body.dark-mode .btn-dark:focus,
+body.dark-mode .btn-outline-dark:focus {
+  background-color: #c9e6f6 !important;
+  color: #232c36 !important;
+  border-color: #c9e6f6 !important;
+}
+
+
+/* for search btn */
+body.dark-mode .search-btn{
+  background-color: #54c8df !important;
+  color: #fff !important;
+}
+body.dark-mode .form-control{
+  color: #fff !important;
+}
+body.dark-mode  .d-flex{
+  color: #fff !important;
+}
+
+/* Dark mode: Search input styling */
+body.dark-mode .input-search,
+body.dark-mode .form-control.input-search {
+  background-color: #232c36 !important;
+  color: #fff !important;
+  border-color: #54c8df !important;
+}
+
+body.dark-mode .input-search::placeholder,
+body.dark-mode .form-control.input-search::placeholder {
+  color: #e3f4fb !important;
+  opacity: 1;
+}

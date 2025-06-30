@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-5">
+  <h1 class="text-center">All Bookings</h1>
+  <% if (bookings.length === 0) { %>
+    <p class="text-center mt-4">No bookings found.</p>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>Hotel Name</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Guests</th>
+            <th>Total Cost</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bookings.forEach(({ listing, booking }) => { %>
+            <tr>
+              <td><%= listing.title %></td>
+              <td><%= booking.name %></td>
+              <td><%= booking.email %></td>
+              <td><%= booking.checkIn.toDateString() %></td>
+              <td><%= booking.checkOut.toDateString() %></td>
+              <td><%= booking.guests %></td>
+              <td>&#8377;<%= booking.totalCost.toLocaleString("en-IN") %></td>
+              <td>
+                <% if (booking.cancelled) { %>
+                  <span class="text-danger">Cancelled by User</span>
+                <% } else { %>
+                  <span class="text-success">Active</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>

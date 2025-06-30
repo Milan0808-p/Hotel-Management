@@ -1,0 +1,108 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <h1 class="text-center">Book <%= listing.title %></h1>
+  <form action="/listings/<%= listing._id %>/book" method="POST" novalidate class="needs-validation">
+    <div class="mb-3">
+      <label for="name" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+      <div class="valid-feedback">Looks good!</div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+      <div class="invalid-feedback">
+        Please Enter Email!
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="text" class="form-control" id="phone" name="phone" required>
+      <div class="invalid-feedback">
+        Please Enter Phone Number!
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="checkIn" class="form-label">Check-In Date</label>
+      <input type="date" class="form-control" id="checkIn" name="checkIn" required>
+    </div>
+    <div class="mb-3">
+      <label for="checkOut" class="form-label">Check-Out Date</label>
+      <input type="date" class="form-control" id="checkOut" name="checkOut" required>
+    </div>
+    <div class="mb-3">
+      <label for="guests" class="form-label">Number of Guests</label>
+      <input type="number" class="form-control" id="guests" name="guests" min="1" required>
+      <div class="invalid-feedback">
+        Please Enter Number of Guests!
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<script>
+  // Pass bookedRanges from server to JS
+  const bookedRanges = <%- JSON.stringify(bookedRanges) %>;
+
+  // Helper to format date as yyyy-mm-dd
+  function formatDate(date) {
+    const d = new Date(date);
+    const month = '' + (d.getMonth() + 1);
+    const day = '' + d.getDate();
+    const year = d.getFullYear();
+    return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
+  }
+
+  // Collect all booked dates in a Set for fast lookup
+  const bookedDates = new Set();
+  bookedRanges.forEach(range => {
+    let current = new Date(range.checkIn);
+    const end = new Date(range.checkOut);
+    while (current <= end) {
+      bookedDates.add(formatDate(current));
+      current.setDate(current.getDate() + 1);
+    }
+  });
+
+  // Set min date to today for both inputs
+  const today = new Date();
+const minDate = formatDate(today);
+document.getElementById('checkIn').setAttribute('min', minDate);
+document.getElementById('checkOut').setAttribute('min', minDate);
+
+  // Hide date inputs if today is past all available dates (optional UX)
+  function allDatesGone() {
+    // If all booked ranges are in the past, hide date inputs
+    let latestBooked = null;
+    bookedRanges.forEach(range => {
+      const out = new Date(range.checkOut);
+      if (!latestBooked || out > latestBooked) latestBooked = out;
+    });
+    return latestBooked && latestBooked < today;
+  }
+  if (allDatesGone()) {
+    document.getElementById('checkIn').style.display = 'none';
+    document.getElementById('checkOut').style.display = 'none';
+    // Optionally show a message
+    const msg = document.createElement('div');
+    msg.className = "alert alert-warning mt-2";
+    msg.innerText = "No dates available for booking.";
+    document.querySelector('form').insertBefore(msg, document.querySelector('form').firstChild);
+  }
+
+  // Disable booked dates in the date pickers
+  function disableBookedDates(input) {
+    input.addEventListener('input', function() {
+      if (bookedDates.has(this.value)) {
+        alert('This date is already booked. Please choose another date.');
+        this.value = '';
+      }
+    });
+  }
+
+  disableBookedDates(document.getElementById('checkIn'));
+  disableBookedDates(document.getElementById('checkOut'));
+
+  
+</script>

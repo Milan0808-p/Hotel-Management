@@ -1,0 +1,68 @@
+<% layout("/layouts/boilerplate") %>
+
+
+  <div class="edit-container">
+    </br>
+    <form method="post" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation"
+      enctype="multipart/form-data">
+      <h3>Edit Tour Listing:</h3>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input name="listing[title]" value="<%=listing.title%>" type="text" class="form-control" required>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required><%=listing.description%></textarea>
+        <div class="invalid-feedback">
+          Please Enter Description.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input name="listing[image]"  type="file" class="form-control" >
+      </div>
+      <div class="mb-3">
+        <label for="categories" class="form-label">Categories</label>
+        <select class="form-select" id="categories" name="categories" multiple>
+          <option value="Trending" <%= listing.categories.includes("Trending") ? "selected" : "" %>>Trending</option>
+          <option value="Pools" <%= listing.categories.includes("Pools") ? "selected" : "" %>>Pools</option>
+          <option value="Camping" <%= listing.categories.includes("Camping") ? "selected" : "" %>>Camping</option>
+          <option value="Farms" <%= listing.categories.includes("Farms") ? "selected" : "" %>>Farms</option>
+          <option value="Beach" <%= listing.categories.includes("Beach") ? "selected" : "" %>>Beach</option>
+          <option value="Mountains" <%= listing.categories.includes("Mountains") ? "selected" : "" %>>Mountains</option>
+          <option value="Castles" <%= listing.categories.includes("Castles") ? "selected" : "" %>>Castles</option>
+          <option value="Rooms" <%= listing.categories.includes("Rooms") ? "selected" : "" %>>Rooms</option>
+          <option value="Arctic" <%= listing.categories.includes("Arctic") ? "selected" : "" %>>Arctic</option>
+          <option value="Boats" <%= listing.categories.includes("Boats") ? "selected" : "" %>>Boats</option>
+        </select>
+        <small class="form-text text-muted">Hold down the Ctrl (Windows) or Command (Mac) key to select multiple options.</small>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input name="listing[price]" value="<%=listing.price%>" class="form-control" required>
+          <div class="invalid-feedback">
+            Please Enter valid Price.
+          </div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input name="listing[country]" value="<%=listing.country%>" type="text" class="form-control" required>
+          <div class="invalid-feedback">
+            Please Enter valid Country.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input name="listing[location]" value="<%=listing.location%>" type="text" class="form-control" required>
+        <div class="invalid-feedback">
+          Please Enter Location.
+        </div>
+      </div>
+      </br>
+      <button class="btn btn-dark add-btn">Edit</button>
+      </br></br>
+    </form>
+  </div>

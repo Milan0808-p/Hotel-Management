@@ -1,0 +1,37 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="card-container">
+  <!-- this if is for search location listing -->
+  <% if (allListings.length === 0) { %>  
+    <p class="text-center mt-4">No listings found for "<%= search %>".</p>
+  <% } else { %>
+    
+    <% for (let listing of allListings) { %>
+      <a href="/listings/<%= listing._id %>">
+      <div class="card mb-3" style="width: 18rem;">
+        <div class="card-img-container">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="Image">
+          <!-- Like button -->
+          <button class="like-btn">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+        </div>
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <p class="card-title">
+            <%= listing.title %>
+          </p>
+          <p class="card-text">
+            <i class="fa-solid fa-location-dot"></i> <%= listing.location %>
+          </p>
+          <p class="card-text">
+            <b>&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></b> /night
+            <i class="card-text-text"> &nbsp; &nbsp; +18% GST</i>
+          </p>
+          
+        </div>
+      </div>
+      </a>
+    <% } %>
+  <% } %>
+</div>

@@ -1,0 +1,93 @@
+<style>
+  .search-btn {
+    background-color: #54b0df;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0rem 1rem 0rem 1rem;
+    color: rgb(246, 244, 244);
+  }
+  .search-btn:hover {
+    background-color: #54c8df;
+    color: white;
+  }
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .input-search {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 0.9rem;
+  }
+  
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-hippo"></i></a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+        <% if (currUser && currUser.role=="Admin" ) {%>
+          <a class="nav-link" href="/listings/your-listings">Your Listings</a>
+          <a href="/listings/admin/bookings" class="nav-link">Bookings</a>
+        <% } %>
+        <% if (currUser && currUser.role=="User" ) {%>
+          <a class="nav-link" href="/listings/my-bookings">My Bookings</a>
+        <% } %>  
+      </div>
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search" action="/listings" method="GET">
+          <input class="form-control me-2 input-search" type="search" name="search" placeholder="Search Destination"
+            aria-label="Search" value="<%= typeof search !== 'undefined' ? search : '' %>">
+          <button class="btn btn-outline search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <%if (currUser && currUser.role=="Admin" ) {%>
+        <a class="nav-link" href="/listings/new">Add New Listing</a>
+        <% } %>
+        <% if(!currUser) { %>
+          <a class="nav-link" href="/signup"><b>Signup</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %>
+        <% if(currUser) { %>
+          <a class="nav-link" href="/logout"><b>Logout</b></a>
+        <% } %>
+        <!-- Dark/Light mode toggle button -->
+        <button id="toggle-darkmode" class="btn btn-info ms-3" type="button" style="border-radius: 25px;">
+          <span id="darkmode-icon" class="fa fa-moon"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Dark mode toggle functionality with persistence
+  const btn = document.getElementById('toggle-darkmode');
+  const icon = document.getElementById('darkmode-icon');
+
+  // On page load, check localStorage and set dark mode if needed
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+  }
+
+  btn?.addEventListener('click', function () {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+</script>
